@@ -1,26 +1,24 @@
-to_do_file = open("files/todo-data.txt", "r")
-list_to_do = to_do_file.readlines()
-to_do_list = [line.strip("\n") for line in list_to_do]
-to_do_file.close()
+
+with open("files/todo-data.txt", "r") as to_do_file:
+    list_to_do = to_do_file.readlines()
+to_do_list = [line.strip().strip("\n") for line in list_to_do]
+
 print("Welcome, your current list is: ")
 for index, to_do in enumerate(to_do_list):
     print(f"{index + 1}. {to_do}")
 print("Welcome to the to do application!")
+
 while True:
     to_do_action = input("Would you like to leave the application or add, edit, show, complete, or delete an item: ")\
         .strip()
     to_do_action = to_do_action.lower().strip().strip("\n")
-
     match to_do_action:
         case 'add':
             to_do_item = input("Type the name of the item: ").strip()
             to_do_list.append(to_do_item)
-            to_do_file = open(r"files\todo-data.txt", "w")
         case "show" | "display":
             print("Displaying items.")
-            to_do_file = open("files/todo-data.txt", "r")
-            list_to_do = to_do_file.readlines()
-            to_do_list = [line.strip("\n") for line in list_to_do]
+            to_do_list = [line.strip("\n") for line in to_do_list]
             for index, to_do in enumerate(to_do_list):
                 print(f"{index + 1}. {to_do}")
         case "delete" | "remove":
@@ -34,7 +32,8 @@ while True:
                 print("Error, not an index.")
                 continue
             if len(to_do_list) > delete_index > -1:
-                print(f"Successfully deleted {to_do_list.pop(delete_index)}")
+                removed_item = to_do_list.pop(delete_index)
+                print(f"Successfully deleted {removed_item}")
             else:
                 print("Item does not exist.")
         case "finish" | "complete":
@@ -62,9 +61,15 @@ while True:
             break
         case default:
             print("Invalid input!")
-    to_do_file = open("files/todo-data.txt", "w")
+
     # Write all changes to file, if any.
-    for to_do in to_do_list:
-        to_do_file.write(f"{to_do}\n")
-    to_do_file.close()
+    with open("files/todo-data.txt", "w") as to_do_file:
+        for to_do in to_do_list:
+            to_do_file.write(f"{to_do}\n")
+
+    # Read the updated file and update the list.
+    with open("files/todo-data.txt", "r") as to_do_file:
+        list_to_do = to_do_file.readlines()
+    to_do_list = [line.strip().strip("\n") for line in list_to_do]
+
 print("Thank you for using the to do tracker application!")
