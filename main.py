@@ -21,6 +21,7 @@ while True:
         to_do_list = [line.strip("\n") for line in to_do_list]
         for index, to_do in enumerate(to_do_list):
             print(f"{index + 1}. {to_do}")
+        continue
     elif to_do_action.lower() == "delete" or to_do_action.lower() == "remove":
         if len(to_do_list) == 0:
             print("There are no items to delete.")
@@ -73,6 +74,9 @@ while True:
             continue
     elif "delete" in to_do_action[0:6]:
         delete_index = to_do_action[6:].strip()
+        if len(to_do_list) == 0:
+            print("There's nothing to delete.")
+            continue
         if delete_index.isdigit():
             delete_index = int(delete_index) - 1
         else:
@@ -84,14 +88,15 @@ while True:
         else:
             print("Error, that item is not being tracked.")
     elif "finish" in to_do_action.lower()[0:6]:
+        if len(to_do_list) == 0:
+            print("There are no items to finish.")
+            continue
         finish_item = to_do_action[6:].strip()
         if to_do_list.__contains__(finish_item):
             to_do_list.remove(finish_item)
             print(f"Congratulations for finishing {finish_item}!")
         else:
             print("That item doesn't exist. Guess it is done already then?")
-
-
     elif "end" in to_do_action:
         break
     else:
