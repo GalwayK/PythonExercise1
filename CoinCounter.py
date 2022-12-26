@@ -13,7 +13,7 @@ try:
                 case "tails":
                     total_flips = total_flips + 1
                     number_tails = number_tails + 1
-except:
+except IOError:
     pass
 
 print("Welcome to the coin counter program!\nEnter heads or tails to increment the counter, or end to stop "

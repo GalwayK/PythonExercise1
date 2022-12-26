@@ -16,89 +16,110 @@ while True:
     if to_do_action.lower() == 'add':
         to_do_item = input("Type the name of the item: ").strip()
         to_do_list.append(to_do_item)
+
     elif to_do_action.lower() == "show" or to_do_action.lower() == "display":
+        if len(to_do_list) == 0:
+            print("There's nothing to display.")
+            continue
         print("Displaying items.")
         to_do_list = [line.strip("\n") for line in to_do_list]
         for index, to_do in enumerate(to_do_list):
             print(f"{index + 1}. {to_do}")
         continue
+
     elif to_do_action.lower() == "delete" or to_do_action.lower() == "remove":
         if len(to_do_list) == 0:
             print("There are no items to delete.")
             continue
-        delete_index = input("What item would you like to delete: ").strip()
-        if delete_index.isdigit():
+        try:
+            delete_index = input("What item would you like to delete: ").strip()
             delete_index = int(delete_index) - 1
-        else:
-            print("Error, not an index.")
-            continue
-        if len(to_do_list) > delete_index > -1:
+
             removed_item = to_do_list.pop(delete_index)
             print(f"Successfully deleted {removed_item}")
-        else:
-            print("Item does not exist.")
+
+        except ValueError:
+            print("Error, invalid input.")
+            continue
+        except IndexError:
+            print("Error, item does not exist.")
+
     elif to_do_action.lower() == "finish" or to_do_action.lower() == "complete":
         if len(to_do_list) == 0:
             print("There are no items to finish.")
             continue
-        complete_name = input("Which item have you completed: ").strip()
-        if to_do_list.__contains__(complete_name):
+        try:
+            complete_name = input("Which item have you completed: ").strip()
             to_do_list.remove(complete_name)
             print(f"Congratulations for finishing {complete_name}!")
-        else:
-            print("That item doesn't exist. Guess it's already done then?")
+        except ValueError:
+            print("That  item doesn't exist. Guess it is already done then?")
+            continue
+
     elif to_do_action.lower() == "edit":
-        number = input("Number of item to edit: ").strip()
-        if number.isdigit():
+        if len(to_do_list) == 0:
+            print("There are no items to finish.")
+            continue
+        try:
+            number = input("Number of item to edit: ").strip()
             number = int(number) - 1
-        else:
-            print("Error, not an index.")
-            continue
-        if len(to_do_list) > number > -1:
             to_do_list[number] = input("Enter replacement item: ")
-        else:
-            print("Error, that item isn't being tracked!")
-    elif "add" in to_do_action[0:3]:
+        except IndexError:
+            print("Error, that item doesn't exist.")
+            continue
+        except ValueError:
+            print("Error, invalid input.")
+            continue
+
+    elif to_do_action.lower().startswith("add"):
         to_do_list.append(to_do_action[3:].strip())
-    elif "edit" in to_do_action[0:4]:
-        edit_index = to_do_action[4:].strip()
-        if edit_index.isdigit():
+
+    elif to_do_action.lower().startswith("edit"):
+        if len(to_do_list) == 0:
+            print("There are no items to finish.")
+            continue
+        try:
+            edit_index = to_do_action[4:].strip()
             edit_index = int(edit_index) - 1
-        else:
-            print("Error, not an index.")
-            continue
-        if len(to_do_list) > edit_index > -1:
             to_do_list[edit_index] = input("Enter the new to do item: ")
-        else:
-            print("Error, that item is not being tracked.")
+        except ValueError:
+            print("Error, invalid input. Please enter an index number.")
             continue
-    elif "delete" in to_do_action[0:6]:
+        except IndexError:
+            print("Error, that item does not exist.")
+            continue
+
+    elif to_do_action.lower().startswith("delete"):
         delete_index = to_do_action[6:].strip()
         if len(to_do_list) == 0:
             print("There's nothing to delete.")
             continue
-        if delete_index.isdigit():
+        try:
             delete_index = int(delete_index) - 1
-        else:
-            print("Error, not an index.")
-            continue
-        if len(to_do_list) > delete_index > -1:
             removed_item = to_do_list.pop(delete_index)
             print(f"Successfully deleted {removed_item}")
-        else:
-            print("Error, that item is not being tracked.")
-    elif "finish" in to_do_action.lower()[0:6]:
+        except IndexError:
+            print("Error, that item does not exist.")
+            continue
+        except ValueError:
+            print("Error, please enter an index number.")
+            continue
+
+    elif to_do_action.lower().startswith("finish"):
         if len(to_do_list) == 0:
             print("There are no items to finish.")
             continue
-        finish_item = to_do_action[6:].strip()
-        if to_do_list.__contains__(finish_item):
+        try:
+            finish_item = to_do_action[6:].strip()
             to_do_list.remove(finish_item)
             print(f"Congratulations for finishing {finish_item}!")
-        else:
-            print("That item doesn't exist. Guess it is done already then?")
-    elif "end" in to_do_action:
+        except ValueError:
+            print("Error, that item does not exist.")
+            continue
+
+    elif to_do_action.lower() == "end":
         break
+
     else:
         print("Error, invalid input.")
         continue
