@@ -1,15 +1,28 @@
+def write_to_do_list(filepath, to_do_list_local):
+    with open(filepath, "w") as file:
+        [file.write(f"{line}\n") for line in to_do_list_local]
+    return None
 
-with open("files/todo-data.txt", "r") as to_do_file:
-    list_to_do = to_do_file.readlines()
-to_do_list = [line.strip().strip("\n") for line in list_to_do]
+
+def read_to_do_list(filepath):
+    with open(filepath, "r") as file:
+        to_do_list_local = file.readlines()
+    return [line.strip().strip("\n") for line in to_do_list_local]
+
+
+def show_to_do_list(to_do_list_local):
+    for index, to_do in enumerate(to_do_list):
+        print(f"{index + 1}. {to_do}")
+
+
+to_do_list = read_to_do_list("files/todo-data.txt")
 
 print("Welcome, your current list is: ")
-for index, to_do in enumerate(to_do_list):
-    print(f"{index + 1}. {to_do}")
+show_to_do_list(to_do_list)
 print("Welcome to the to do application!")
 
 while True:
-    to_do_action = input("Would you like to leave the application or add, edit, show, finish, or delete an item: ")\
+    to_do_action = input("Would you like to leave the application or add, edit, show, finish, or delete an item: ") \
         .strip()
     to_do_action = to_do_action.strip().strip("\n")
 
@@ -22,9 +35,7 @@ while True:
             print("There's nothing to display.")
             continue
         print("Displaying items.")
-        to_do_list = [line.strip("\n") for line in to_do_list]
-        for index, to_do in enumerate(to_do_list):
-            print(f"{index + 1}. {to_do}")
+        show_to_do_list(to_do_list)
         continue
 
     elif to_do_action.lower() == "delete" or to_do_action.lower() == "remove":
@@ -125,13 +136,9 @@ while True:
         continue
 
     # Write all changes to file, if any.
-    with open("files/todo-data.txt", "w") as to_do_file:
-        for to_do in to_do_list:
-            to_do_file.write(f"{to_do}\n")
+    write_to_do_list("files/todo-data.txt", to_do_list)
 
     # Read the updated file and update the list.
-    with open("files/todo-data.txt", "r") as to_do_file:
-        list_to_do = to_do_file.readlines()
-    to_do_list = [line.strip().strip("\n") for line in list_to_do]
+    to_do_list = read_to_do_list("files/todo-data.txt")
 
 print("Thank you for using the to do tracker application!")
