@@ -150,6 +150,7 @@
 # except ValueError:
 #     bonus_functions.why("Error, please enter a temperature.")
 
+import time
 from bonus_functions import count_period
 
 statement = input("Please enter a statement: ")

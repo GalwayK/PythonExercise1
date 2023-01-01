@@ -1,12 +1,14 @@
 from modules import functions
+import time
 
+current_time = time.strftime("%b %d %Y at %H:%M:%S")
 to_do_list = []
 try:
     to_do_list = functions.read_to_do_list()
 except FileNotFoundError:
     print("File does not exist.")
 
-print("Welcome, your current list is: ")
+print(f"Welcome, it is {current_time}, and your current list is: ")
 functions.show_to_do_list(to_do_list_local=to_do_list)
 print("Welcome to the to do application!")
 
