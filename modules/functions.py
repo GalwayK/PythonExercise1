@@ -31,3 +31,9 @@ def show_to_do_list(to_do_list_local):
     for index, to_do in enumerate(to_do_list_local):
         print(f"{index + 1}. {to_do}")
     return None
+
+
+print(__name__)
+if __name__ == "__main__":
+    print(__name__)
+
