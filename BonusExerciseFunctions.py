@@ -36,64 +36,7 @@
 # temperature_average = get_temperature_average()
 # print(temperature_average)
 # #
-# def feet_to_meters(measure_feet):
-#     """
-#     Accepts a given value in feet and converts that value to meters.
-#     :param measure_feet:
-#     :return:
-#     """
-#     return measure_feet / 3.281
-#
-#
-# def inches_to_meters(measure_inch):
-#     """
-#     Accepts a given value in inches and converts that value to meters.
-#     :param measure_inch:
-#     :return:
-#     """
-#     return measure_inch / 39.37
-#
-#
-# def parse_feet_inches(measure_imperial_string):
-#     """
-#     Accepts a String and returns that String as a list delimited by blank whitespaces.
-#     :param measure_imperial_local:
-#     :return:
-#     """
-#     return measure_imperial_string.split(" ")
-#
-#
-# def convert_list_to_float(string_list):
-#     """
-#     Accepts a list of String as input and returns that String with its items converted to floats.
-#     :param string_list:
-#     :return:
-#     """
-#     return [float(item) for item in string_list]
-#
-#
-# def convert_list_to_dict(measure_list_local):
-#     """
-#     Accepts a list of measurements in feet and inches and returns that list as a dictionary for each
-#     measurement.
-#     :param measure_list_local:
-#     :return:
-#     """
-#     return {"feet": measure_list[0], "inches": measure_list[1]}
-#
-#
-# measure_imperial = input("Enter the length in feet and inches: ")
-# try:
-#     measure_list = parse_feet_inches(measure_imperial)
-#     measure_list = convert_list_to_float(measure_list)
-#     measure_dict = convert_list_to_dict(measure_list)
-#     meters_feet = feet_to_meters(measure_dict["feet"])
-#     meters_inch = inches_to_meters(measure_dict["inches"])
-#     print(f"The total measurement in meters is {meters_inch + meters_feet:.2f} meters.")
-# except ValueError:
-#     print("Invalid input.")
-# except IndexError:
-#     print("Invalid input.")
+
 
 # def speed(travel_data_local):
 #     return travel_data_local["distance"] / travel_data_local["time"]
@@ -174,12 +117,44 @@
 # names_list = get_name_list(names)
 # print(names_list)
 
-def calculate_time(h, g=9.80665):
-    t = (2 * h / g) ** 0.5
-    return t
+# def calculate_time(h, g=9.80665):
+#     t = (2 * h / g) ** 0.5
+#     return t
+#
+#
+# time = calculate_time(100)
+# print(time)
 
+# from bonus_functions import *
+#
+# measure_imperial = input("Enter the length in feet and inches: ")
+# try:
+#     measure_list = parse_feet_inches(measure_imperial)
+#     measure_list = convert_list_to_float(measure_list)
+#     measure_dict = convert_list_to_dict(measure_list)
+#     meters_feet = feet_to_meters(measure_dict["feet"])
+#     meters_inch = inches_to_meters(measure_dict["inches"])
+#     print(f"The total measurement in meters is {meters_inch + meters_feet:.2f} meters.")
+# except ValueError:
+#     why("There has been a Value Error.")
+# except IndexError:
+#     why("There has been an Index Error.")
 
-time = calculate_time(100)
-print(time)
+# import bonus_functions
+#
+# try:
+#     temp = input("Please enter the temperature of the water: ")
+#     temp = float(temp)
+#     state = bonus_functions.is_freezing(temp=temp)
+#     print(f"The state of the water is {state}.")
+# except ValueError:
+#     bonus_functions.why("Error, please enter a temperature.")
+
+import time
+from bonus_functions import count_period
+
+statement = input("Please enter a statement: ")
+nr_of_periods = count_period(statement=statement)
+print(f"There are {nr_of_periods} periods in the statement, \"{statement}\"")
 
 

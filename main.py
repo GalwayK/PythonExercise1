@@ -1,46 +1,15 @@
-def write_to_do_list(to_do_list_local, filepath="files/todo-data.txt"):
-    """
-    Reads a list of todo items and writes them to the given file, overwriting the file's contents in the process.
-    If file is unspecified, attempts to write to a default file location.
-    """
-    print("Writing data...")
-    with open(filepath, "w") as file:
-        [file.write(f"{line}\n") for line in to_do_list_local]
-    print("Writing done!")
-    return None
+from modules import functions
+import time
 
-
-def read_to_do_list(filepath="files/todo-data.txt"):
-    """
-    Reads data from a file and returns each line as a String without trailing whitespaces or new lines.
-    Saves each line in a list and returns the list.
-    """
-    print("Reading data...")
-    with open(filepath, "r") as file:
-        to_do_list_local = file.readlines()
-    print("Reading done!")
-    return [line.strip().strip("\n") for line in to_do_list_local]
-
-
-def show_to_do_list(to_do_list_local):
-    """
-    Receive a list and displays the list's content to the console in a numbered list.
-    """
-    print("Displaying list: ")
-
-    for index, to_do in enumerate(to_do_list_local):
-        print(f"{index + 1}. {to_do}")
-    return None
-
-
+current_time = time.strftime("%b %d %Y at %H:%M:%S")
 to_do_list = []
 try:
-    to_do_list = read_to_do_list()
+    to_do_list = functions.read_to_do_list()
 except FileNotFoundError:
     print("File does not exist.")
 
-print("Welcome, your current list is: ")
-show_to_do_list(to_do_list_local=to_do_list)
+print(f"Welcome, it is {current_time}, and your current list is: ")
+functions.show_to_do_list(to_do_list_local=to_do_list)
 print("Welcome to the to do application!")
 
 while True:
@@ -56,7 +25,7 @@ while True:
         if len(to_do_list) == 0:
             print("There's nothing to display.")
             continue
-        show_to_do_list(to_do_list)
+        functions.show_to_do_list(to_do_list)
         continue
 
     elif to_do_action.lower() == "delete" or to_do_action.lower() == "remove":
@@ -157,9 +126,9 @@ while True:
         continue
 
     # Write all changes to file, if any.
-    write_to_do_list(filepath="files/todo-data.txt", to_do_list_local=to_do_list)
+    functions.write_to_do_list(filepath="files/todo-data.txt", to_do_list_local=to_do_list)
 
     # Read the updated file and update the list.
-    to_do_list = read_to_do_list()
+    to_do_list = functions.read_to_do_list()
 
 print("Thank you for using the to do tracker application!")
