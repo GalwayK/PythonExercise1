@@ -157,7 +157,7 @@ while True:
         continue
 
     # Write all changes to file, if any.
-    write_to_do_list(filepath= "files/todo-data.txt", to_do_list_local=to_do_list)
+    write_to_do_list(filepath="files/todo-data.txt", to_do_list_local=to_do_list)
 
     # Read the updated file and update the list.
     to_do_list = read_to_do_list()
