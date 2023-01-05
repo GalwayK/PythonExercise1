@@ -110,20 +110,24 @@ def km_to_miles(km):
 label = sg.Text("Kilometers: ")
 input_box = sg.InputText(tooltip="Enter todo", key="kms")
 miles_button = sg.Button("Convert")
-
+left_column = sg.Column([[label], [input_box]])
 output = sg.Text(key="output")
+right_column = sg.Column([[miles_button], [output]])
 
 window = sg.Window('Km to Miles Converter',
-                   layout=[[label, input_box], [miles_button, output]],
+                   layout=[[left_column, right_column]],
                    font=('Helvetica', 20))
 
 while True:
     event, values = window.read()
     match event:
         case "Convert":
-            km = float(values["kms"])
-            result = km_to_miles(km)
-            window['output'].update(value=result)
+            try:
+                km = float(values["kms"])
+                result = km_to_miles(km)
+                window['output'].update(value=result)
+            except ValueError:
+                continue
         case sg.WIN_CLOSED:
             break
 
